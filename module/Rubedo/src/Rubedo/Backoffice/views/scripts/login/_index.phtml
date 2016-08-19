@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta property="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" type="image/x-icon"
+          href="<?php echo $this->baseUrl; ?>/backoffice/resources/icones/faviconTurbine.png"/>
+    <title>Turbine Login</title>
+    <script src="<?php echo $this->extJsPath; ?>/<?php echo $this->extJsScript; ?>"></script>
+    <link rel="stylesheet" href="<?php echo $this->extJsPath; ?>/resources/css/ext-all-gray.css" id="theme">
+    <script type="text/javascript">
+        Ext.Loader.setConfig({
+            enabled: false
+        });
+
+        Ext.define('Connector.view.Viewport', {
+            extend: 'Ext.container.Viewport',
+            alias: 'widget.ConnectionViewport',
+
+            hidden: false,
+            renderTo: Ext.getBody(),
+            id: 'ConnectionViewport',
+            style: 'background: #ededed',
+            layout: {
+                align: 'center',
+                pack: 'center',
+                type: 'vbox'
+            },
+
+            initComponent: function () {
+                var me = this;
+
+                Ext.applyIf(me, {
+                    items: [
+                        {
+                            xtype : 'image',
+                            width: 500,
+                            height: 50,
+                            margins: '10 0 10 0',
+                            src: '<?php echo $this->baseUrl;?>/backoffice/resources/images/logo-turbine-center.png'
+                        },
+                        {
+                            xtype: 'form',
+                            frame: true,
+                            height: 370,
+                            width: 500,
+                            padding: 20,
+                            bodyPadding: 20,
+                            icon: '',
+                            title: '<b>Welcome</b>, Please login',
+                            layout: {
+                                align: 'stretch',
+                                pack: 'start',
+                                type: 'vbox'
+                            },
+                            items: [
+                                {
+                                    xtype: 'label',
+                                    text: 'Username (*)',
+                                    margins: '0 0 10 0'
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    name: 'PHP_AUTH_USER',
+                                    allowBlank: false,
+                                    blankText: 'This field is required',
+                                    listeners: {
+                                        render: function (field, e) {
+                                            field.focus();
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'label',
+                                    text: 'Password (*)',
+                                    margins: '0 0 10 0'
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    inputType: 'password',
+                                    name: 'PHP_AUTH_PW',
+                                    allowBlank: false,
+                                    blankText: 'This field is required',
+                                    listeners: {
+                                        specialkey: function (field, e) {
+                                            if (e.getKey() == e.ENTER) {
+                                                Ext.getCmp("submitBtn").fireEvent("click", Ext.getCmp("submitBtn"));
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    id: 'submitBtn',
+                                    margins: '20 0 0 0',
+                                    listeners: {
+                                        click: function (button, event) {
+                                            var myForm = button.up().getForm();
+                                            if (myForm.isValid()) {
+
+
+                                                myForm.submit({
+                                                    url: "/api/v1/auth/oauth2/generate",
+                                                    method: "POST",
+                                                    success: function (form, action) {
+                                                        if (action.result.success) {
+                                                            var expirationDate = action.result.token.createTime + action.result.token.lifetime;
+                                                            expirationDate = new Date(expirationDate * 1000);
+                                                            Ext.util.Cookies.set("accessToken", action.result.token.access_token, expirationDate);
+                                                            Ext.util.Cookies.set("refreshToken", action.result.token.refresh_token);
+                                                            window.location.href = "/backoffice";
+                                                        }
+                                                    },
+                                                    failure: function (form, action) {
+                                                        var reason = Ext.JSON.decode(action.response.responseText).message;
+                                                        Ext.Msg.alert('Error', reason);
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    },
+                                    anchor: '100%',
+                                    scale: 'large',
+                                    text: 'LOGIN',
+                                    tooltip: 'Authenticate and connect to Back Office'
+                                }
+                            ]
+                        }
+                    ]
+                });
+                me.callParent(arguments);
+            }
+
+        });
+        var task = new Ext.util.DelayedTask(function () {
+            Ext.widget("ConnectionViewport");
+        });
+
+        task.delay(100);
+
+
+    </script>
+</head>
+<body></body>
+</html>

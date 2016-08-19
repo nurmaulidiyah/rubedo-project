@@ -57,7 +57,7 @@ class Module implements ConsoleUsageProviderInterface, ConsoleBannerProviderInte
      *
      * @var boolean
      */
-    protected static $cachePageIsActive = true;
+    protected static $cachePageIsActive = false;
 
     /**
      * Did the cache for current page had been found

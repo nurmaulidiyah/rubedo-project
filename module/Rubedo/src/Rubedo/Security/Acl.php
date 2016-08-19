@@ -80,6 +80,7 @@ class Acl implements IAcl
      */
     public function hasAccess($resource)
     {
+        //die($resource);
         if (!isset(self::$hasAccessRults[$resource])) {
             $result = false;
             $currentUserService = Manager::getService('CurrentUser');

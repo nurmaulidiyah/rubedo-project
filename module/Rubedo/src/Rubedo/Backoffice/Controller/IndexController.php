@@ -36,7 +36,6 @@ class IndexController extends AbstractExtLoaderController
     public function indexAction()
     {
         $this->_auth = Manager::getService('AuthenticationService');
-
         if (!$this->_auth->hasIdentity()) {
             $redirectParams = array(
                 'action' => 'index',
@@ -49,13 +48,13 @@ class IndexController extends AbstractExtLoaderController
             return $this->redirect()->toRoute(null, $redirectParams);
         }
 
-        if (!Manager::getService('Acl')->hasAccess('ui.backoffice')) {
+        /*if (!Manager::getService('Acl')->hasAccess('ui.backoffice')) {
             $redirectParams = array(
                 'action' => 'index',
                 'controller' => 'logout'
             );
             return $this->redirect()->toRoute(null, $redirectParams);
-        }
+        }*/
 
         return $this->loadExtApps();
     }

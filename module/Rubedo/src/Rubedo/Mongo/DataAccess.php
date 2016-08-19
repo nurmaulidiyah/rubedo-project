@@ -535,7 +535,7 @@ class DataAccess implements IDataAccess
                         $options['readPreference'] = self::$_readPreference;
                     }
                     if (self::$_timeout){
-                        $options['timeout'] = self::$_timeout;
+                        $options['connectTimeoutMS'] = self::$_timeout;
                     }
                     $adapter = new \MongoClient($mongo, $options);
                 }

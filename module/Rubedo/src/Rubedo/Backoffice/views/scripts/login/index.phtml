@@ -1,154 +1,93 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-    <meta property="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="shortcut icon" type="image/x-icon"
-          href="<?php echo $this->baseUrl; ?>/backoffice/resources/icones/faviconRubedo.ico"/>
-    <title>Rubedo Connexion</title>
-    <script
-        src="<?php echo $this->extJsPath; ?>/<?php echo $this->extJsScript; ?>"></script>
-    <link rel="stylesheet"
-          href="<?php echo $this->extJsPath; ?>/resources/css/ext-all-gray.css"
-          id="theme">
-    <script type="text/javascript">
-        Ext.Loader.setConfig({
-            enabled: false
-        });
+    <head>
+        <meta property="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->baseUrl; ?>/backoffice/resources/icones/faviconTurbine.png"/>
+        <title>Turbine Login</title>
+        <script src="<?php echo $this->ang?>/angular.min.js"></script>
+        <script src="<?php echo $this->ang?>/angular-cookies.min.js"></script>
+        <!-- <script src="<?php echo $this->extJsPath; ?>/<?php echo $this->extJsScript; ?>"></script> -->
+        <link rel="stylesheet" href="<?php echo $this->ui; ?>css/turbine.css">
+    </head>
+    <body ng-app="turbine" ng-controller="LoginController">
+        <div class="loaderOuter" style="display: none;">
+            <div class="loading">
+                <div class="bullet"></div>
+                <div class="bullet"></div>
+                <div class="bullet"></div>
+                <div class="bullet"></div>
+            </div>
+        </div>
+        <div id="wrapper" style="opacity: 1;">
+            <div class="loginCont">
+                <div class="loginInnr_cont" id="login" style="opacity: 1; top: 0px;">
+                    <div class="loginLogo"><img src="<?php echo $this->ui;?>image/logo-turbine-center.png?>" alt="#"></div>
+                    <form class="loginInnr_box" ng-submit="processForm()">
+                        <h2><strong>Welcome</strong>, Please login</h2>                        
+                        <div class="errors" ng-show="hasError">
+                            <span class="error_span"></span>
+                            <p>{{error_message}}</p>
+                        </div>
+                        <ul>
+                            <li class="clearfix">
+                                <strong>Email*</strong>
+                                <input type="text" placeholder="Username" ng-class="input_key" ng-required ng-model="formData.PHP_AUTH_USER">
+                            </li>
+                            <li class="clearfix">
+                                <strong>Password*</strong>
+                                <input type="password" placeholder="Password" ng-class="input_key" ng-required ng-model="formData.PHP_AUTH_PW">
+                            </li>
+                            <li class="clearfix"> 
+                                <div class="loginSubmit">
+                                    <input type="submit" class="submit_login_form" value="Log In">
+                                </div>
+                            </li>
+                        </ul>
+                        <small class="loginCopyRight">Copyright Turbine . 2016 </small> 
+                    </form>
+                </div>  
+            </div>
+        </div>
+    </body>
+    <script>
+        var app = angular.module('turbine', ['ngCookies']);
+        app.controller('LoginController', [ '$scope','$http', '$cookies', '$cookieStore', function($scope, $http, $cookies, $cookieStore) {
+            $scope.hasError = false;
+            $scope.error_message = '';
+            $scope.formData = {};
 
-        Ext.define('Connector.view.Viewport', {
-            extend: 'Ext.container.Viewport',
-            alias: 'widget.ConnectionViewport',
-
-            hidden: false,
-            renderTo: Ext.getBody(),
-            id: 'ConnectionViewport',
-            style: 'background: url(<?php echo $this->baseUrl;?>/backoffice/resources/images/logo.png)  center no-repeat;',
-            layout: {
-                align: 'center',
-                pack: 'center',
-                type: 'vbox'
-            },
-
-            initComponent: function () {
-                var me = this;
-
-                Ext.applyIf(me, {
-                    items: [
-                        {
-                            xtype: 'form',
-                            frame: true,
-                            height: 151,
-                            width: 400,
-                            bodyPadding: 10,
-                            icon: '<?php echo $this->baseUrl;?>/backoffice/resources/images/lock.png',
-                            title: 'Log in',
-                            items: [
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '90%',
-                                    style: 'float: left;',
-                                    name: 'PHP_AUTH_USER',
-                                    fieldLabel: 'Login ',
-                                    labelWidth: 120,
-                                    allowBlank: false,
-                                    blankText: 'This field is required',
-                                    listeners: {
-                                        render: function (field, e) {
-                                            field.focus();
-                                        }
-                                    }
-                                },
-                                {
-                                    xtype: 'button',
-                                    style: 'float: right;',
-                                    handleMouseEvents: false,
-                                    icon: '<?php echo $this->baseUrl;?>/backoffice/resources/images/info.png',
-                                    text: '',
-                                    tabIndex: 998,
-                                    tooltip: 'User login'
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '90%',
-                                    margin: '0 0 10 0',
-                                    style: 'float: left;',
-                                    inputType: 'password',
-                                    name: 'PHP_AUTH_PW',
-                                    fieldLabel: 'Password ',
-                                    labelWidth: 120,
-                                    allowBlank: false,
-                                    blankText: 'This field is required',
-                                    listeners: {
-                                        specialkey: function (field, e) {
-                                            if (e.getKey() == e.ENTER) {
-                                                Ext.getCmp("submitBtn").fireEvent("click", Ext.getCmp("submitBtn"));
-                                            }
-                                        }
-                                    }
-                                },
-                                {
-                                    xtype: 'button',
-                                    style: 'float: right;',
-                                    handleMouseEvents: false,
-                                    icon: '<?php echo $this->baseUrl;?>/backoffice/resources/images/info.png',
-                                    text: '',
-                                    tabIndex: 1000,
-                                    tooltip: 'User password'
-                                },
-
-                                {
-                                    xtype: 'button',
-                                    id: 'submitBtn',
-                                    listeners: {
-                                        click: function (button, event) {
-                                            var myForm = button.up().getForm();
-                                            if (myForm.isValid()) {
-
-
-                                                myForm.submit({
-                                                    url: "/api/v1/auth/oauth2/generate",
-                                                    method: "POST",
-                                                    success: function (form, action) {
-                                                        if (action.result.success) {
-                                                            var expirationDate = action.result.token.createTime + action.result.token.lifetime;
-                                                            expirationDate = new Date(expirationDate * 1000);
-                                                            Ext.util.Cookies.set("accessToken", action.result.token.access_token, expirationDate);
-                                                            Ext.util.Cookies.set("refreshToken", action.result.token.refresh_token);
-                                                            window.location.href = "/backoffice";
-                                                        }
-
-                                                    },
-                                                    failure: function (form, action) {
-                                                        var reason = Ext.JSON.decode(action.response.responseText).message;
-                                                        Ext.Msg.alert('Error', reason);
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    },
-                                    anchor: '100%',
-                                    scale: 'large',
-                                    text: 'OK',
-                                    tooltip: 'Authenticate and connect to Back Office'
-                                }
-                            ]
+            $scope.processForm = function(){
+                $http({
+                    method  : 'POST',
+                    url     : '/api/v1/auth/oauth2/generate',
+                    data    : $scope.formData,
+                    headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+                })
+                .then(
+                    function(data) {
+                        console.log(data);
+                        data = data.data;
+                        if (data.success) {
+                            var expirationDate = data.token.createTime + data.token.lifetime;
+                            expirationDate = new Date(expirationDate * 1000);
+                            $cookies["accessToken"] = data.token.access_token;
+                            $cookies["refreshToken"] = data.token.refresh_token;
+                            $cookies["current"] = data.currentUser.name;
+                            //document.cookie = "accessToken = "+data.token.access_token+"; expires="+expirationDate;
+                            //document.cookie = "refreshToken = "+data.token.refresh_token+";";
+                            //Ext.util.Cookies.set("accessToken", data.token.access_token, expirationDate);
+                            //Ext.util.Cookies.set("refreshToken", data.token.refresh_token);
+                            window.location.href = "/backoffice";
                         }
-                    ]
-                });
-
-                me.callParent(arguments);
+                    },
+                    function(data){
+                        console.log(data);
+                        $scope.hasError = true;
+                        $scope.error_message = data.statusText;
+                    }
+                );
             }
-
-        });
-        var task = new Ext.util.DelayedTask(function () {
-            Ext.widget("ConnectionViewport");
-        });
-
-        task.delay(100);
-
-
+        }]);
     </script>
-</head>
-<body></body>
 </html>

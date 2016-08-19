@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<!-- Auto Generated with Sencha Architect -->
+<!-- Modifications to this file will be overwritten. -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Turbine</title>
+
+    <link rel="stylesheet" href="<?php echo $this->extJsPath; ?>/resources/css/ext-all-gray.css" id="ext_theme">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl; ?>/backoffice/resources/css/red_theme.css" id="maintheme">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl; ?>/backoffice/resources/boxselect/BoxSelect.css">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl; ?>/backoffice/resources/ratingField/Ext.ux.widget.Rating.css" id="ratingFieldCSS">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl; ?>/backoffice/resources/css/data-view.css" id="dataViewUX">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl; ?>/backoffice/resources/css/uxs.css">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl; ?>/backoffice/resources/ux/container/ButtonSegment.css">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl; ?>/backoffice/resources/ux/grid/feature/Tileview.css">
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->baseUrl; ?>/backoffice/resources/icones/faviconTurbine.png"/>
+
+</head>
+<body style="background-color: white;" class="x-body x-webkit x-chrome x-mac x-reset">
+<style id="loading-bar-style">
+.progress-bar-rubedo {
+    width: 50%;
+    height: 50%;
+    left: 25%;
+    top: 25%;
+}
+.progress-bar-rubedo div {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  background-color: #999;
+  top: 45%;
+  border-radius: 50%;
+}
+.progress-bar-rubedo div:nth-child(1) {
+  animation: move 2s infinite cubic-bezier(.2,.64,.81,.23);
+}
+.progress-bar-rubedo div:nth-child(2) {
+  animation: move 2s 150ms infinite cubic-bezier(.2,.64,.81,.23);
+}
+.progress-bar-rubedo div:nth-child(3) {
+  animation: move 2s 300ms infinite cubic-bezier(.2,.64,.81,.23);
+}
+.progress-bar-rubedo div:nth-child(4) {
+  animation: move 2s 450ms infinite cubic-bezier(.2,.64,.81,.23);
+}
+@keyframes move {
+  0% {left: 0%;}
+  100% {left:100%;}
+}
+
+</style>
+<div id="loading-bar" class="progress-bar-rubedo">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+
+<script src="<?php echo $this->extJsPath; ?>/<?php echo $this->extJsScript; ?>"></script>
+<script src="<?php echo $this->extJsPath; ?>/locale/ext-lang-<?php echo $this->userLang; ?>.js" id="locale"></script>
+<script src="<?php echo $this->baseUrl; ?>/backoffice/resources/boxselect/BoxSelect.js"></script>
+<script src="<?php echo $this->baseUrl; ?>/backoffice/resources/ratingField/Ext.ux.widget.Rating.js" id="ratingFieldJS"></script>
+<script src="<?php echo $this->baseUrl; ?>/backoffice/resources/ColorField.js" id="Ext.ux.ColorFieldJS"></script>
+<script src="<?php echo $this->baseUrl; ?>/backoffice/resources/FilterBar.js"></script>
+<script src="<?php echo $this->baseUrl; ?>/backoffice/resources/ClearButton.js"></script>
+<script src="/components/webtales/ckeditor/ckeditor.js"></script>
+<script src="<?php echo $this->baseUrl; ?>/backoffice/resources/plupload/js/plupload.js"></script>
+<script src="<?php echo $this->baseUrl; ?>/backoffice/resources/plupload/js/plupload.html4.js"></script>
+<script src="<?php echo $this->baseUrl; ?>/backoffice/resources/plupload/js/plupload.html5.js"></script>
+<script src="<?php echo $this->baseUrl; ?>/backoffice/resources/plupload/js/plupload.flash.js"></script>
+<script src="<?php echo $this->baseUrl; ?>/backoffice/resources/plupload/js/plupload.silverlight.js"></script>
+<script src="<?php echo $this->baseUrl; ?>/backoffice/resources/tpf/UX_TimePickerField.js"></script>
+<script src="<?php echo $this->baseUrl; ?>/backoffice/resources/tpf/UX_DateTimePicker.js"></script>
+<script src="<?php echo $this->baseUrl; ?>/backoffice/resources/tpf/UX_DateTimeField.js"></script>
+<script src="<?php echo $this->baseUrl; ?>/backoffice/resources/tpf/UX_DateTimeMenu.js"></script>
+
+<script type="text/javascript">
+    Ext.define('PHPOptions', {
+        singleton: true,
+        addECommerce: <?php if ($this->addECommerce){?>true<?php }else{ ?> false<?php }?>,
+        activateMagic: <?php if ($this->activateMagic){?>true<?php }else{ ?> false<?php }?>
+    });
+</script>
+<script type="text/javascript" src="<?php echo $this->baseUrl; ?>/backoffice/app.js?_dc=1361290173305"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+</body>
+</html>

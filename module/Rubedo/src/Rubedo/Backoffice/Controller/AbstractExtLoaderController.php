@@ -69,6 +69,11 @@ abstract class AbstractExtLoaderController extends AbstractActionController
         } else {
             $this->viewData['activateMagic'] = false;
         }
+
+        /* addition of angular */
+        $this->viewData['ang'] = $this->request->getBasePath() . '/components/angular/angular.js';
+        $this->viewData['ui'] = $this->request->getBasePath() . '/components/webtales/turbine-backoffice/';
+
         $viewModel = new ViewModel($this->viewData);
         $viewModel->setTerminal(true);
 

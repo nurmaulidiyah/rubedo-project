@@ -62,6 +62,7 @@ class UserTokens extends AbstractCollection
      */
     public function findOneByAccessToken($accessToken)
     {
+        $accessToken = str_replace('"', '', $accessToken);
         $filter = Filter::factory('Value');
         $filter->setName('access_token')->setValue($accessToken);
         $token = $this->_dataService->findOne($filter);
