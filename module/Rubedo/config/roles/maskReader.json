@@ -1,0 +1,14 @@
+{
+    "id": "maskReader",
+    "label": {
+        "fr": "Consultation des masques",
+        "en": "Can read masks"
+    },
+    "rights": [
+        "read.ui.masks",
+        "execute.controller.masks.index.backoffice",
+        "execute.controller.sites.index.backoffice",
+        "execute.controller.pages.read-child.backoffice",
+        "execute.controller.masks.is-used.backoffice"
+    ]
+}
