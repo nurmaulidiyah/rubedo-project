@@ -5,11 +5,15 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turbine</title>
     <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->baseUrl; ?>/backoffice/resources/icones/faviconTurbine.png"/>
     <script src="<?php echo $this->ang?>/angular.min.js"></script>
     <!-- <script src="<?php echo $this->ang?>/angular-cookies.min.js"></script> -->
+    <script src="<?php echo $this->ang?>/angular-route.min.js"></script>
     <link rel="stylesheet" href="<?php echo $this->ui; ?>css/turbine.css">
+    <link rel="stylesheet" href="<?php echo $this->ui; ?>css/turbine-admin.css">
+    <link rel="stylesheet" href="<?php echo $this->ui; ?>css/userSetting.css">
 </head>
 <body ng-app="turbine">
   <div class="loaderOuter">
@@ -25,24 +29,30 @@
       <div class="headerAuto">
         <div class="headerInnr clearfix">
           <div class="headerLogo">
-            <a href="/">
+            <a href="/backoffice">
               <img src="<?php echo $this->ui; ?>image/logoTurbine-full.png" alt="Turbine CMS">
             </a> 
-          </div>
-          <div class="menuIcon">Menu</div>
+          </div>          
           <div class="headrMenu clearfix">
             <ul>
               <li ng-repeat="menu in menus">
-                <a href="{{menu.url}}"><i class=" {{menu.icon}}"></i> {{menu.title}}</a>
+                <a href="{{menu.url}}">
+                  <img ng-src="<?php echo $this->ui; ?>image/icon/{{menu.icon}}" ng-show="menu.icon !== '' " class="menu-icon"/> 
+                  {{menu.title}}
+                  <img ng-src="<?php echo $this->ui; ?>image/caret.png" ng-show="menu.hasChild" class="menu-caret"/>
+                </a>
                 <ul ng-show="menu.hasChild">
                   <li ng-repeat = "cmenu in menu.childs">
-                    <a href="cmenu.url"><i class="=" {{cmenu.icon}}"></i> {{cmenu.title}}</a>
+                    <a href="cmenu.url">
+                      <img ng-src="<?php echo $this->ui; ?>image/icon/{{cmenu.icon}}" ng-show="cmenu.icon !== '' " class="menu-icon"/> 
+                      {{cmenu.title}}
+                    </a>
                   </li>
                 </ul>
               </li>
             </ul>
           </div>
-          <div class="pinkHdr_right  clearfix">
+          <div class="pinkHdr_right clearfix">
             <ul>
               <li>
                 <div class="menuDrop_btn menuUsrPro_outr clearfix">
@@ -53,16 +63,43 @@
                   </div>
                   <div class="menuUsrPro_name">
                     <h3>
-                      <a href="#">John</a>
+                      <a href="#">{{user}}</a>
                     </h3>
                   </div>
                 </div>
                 <ul>
                   <li>
-                    <a href="">Profile</a>
-                  </li>
-                  <li>
                     <a href="/backoffice/logout">Logout</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="menu-button" ng-click="showMenu()">
+            <div class="bullet"></div>
+            <div class="bullet"></div>
+            <div class="bullet"></div>
+          </div>
+          <div class="side-menu">
+            <div class="side-profile">
+              <div class="side-profile-inner">
+                <img src="<?php echo $this->ui;?>image/user.png" alt="user">
+                <span>{{user}}_maulidiyah_</span>
+              </div>
+            </div>
+            <ul class="sm">
+              <li ng-repeat="menu in menus">
+                <a href="{{menu.url}}">
+                  <img ng-src="<?php echo $this->ui; ?>image/icon/{{menu.icon}}" ng-show="menu.icon !== '' " class="menu-icon"/> 
+                  {{menu.title}}
+                  <img ng-src="<?php echo $this->ui; ?>image/caret.png" ng-show="menu.hasChild" class="menu-caret"/>
+                </a>
+                <ul ng-show="menu.hasChild">
+                  <li ng-repeat = "cmenu in menu.childs">
+                    <a href="cmenu.url">
+                      <img ng-src="<?php echo $this->ui; ?>image/icon/{{cmenu.icon}}" ng-show="cmenu.icon !== '' " class="menu-icon"/> 
+                      {{cmenu.title}}
+                    </a>
                   </li>
                 </ul>
               </li>
@@ -71,9 +108,12 @@
         </div>
       </div>
     </div>
-    <div></div>
+    <div class="auto_content" ng-click="closeMenu()">
+      <div ng-view class="auto-content-container"></div>
+    </div>
   </div>
 </body>
 <script type="text/javascript" src="<?php echo $this->ui; ?>js/app.js"></script>
+<script type="text/javascript" src="<?php echo $this->ui; ?>js/userSettingController.js"></script>
 <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
 </html>

@@ -3,12 +3,14 @@
 <html>
     <head>
         <meta property="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->baseUrl; ?>/backoffice/resources/icones/faviconTurbine.png"/>
         <title>Turbine Login</title>
         <script src="<?php echo $this->ang?>/angular.min.js"></script>
         <script src="<?php echo $this->ang?>/angular-cookies.min.js"></script>
         <!-- <script src="<?php echo $this->extJsPath; ?>/<?php echo $this->extJsScript; ?>"></script> -->
         <link rel="stylesheet" href="<?php echo $this->ui; ?>css/turbine.css">
+        <link rel="stylesheet" href="<?php echo $this->ui; ?>css/login.css">
     </head>
     <body ng-app="turbine" ng-controller="LoginController">
         <div class="loaderOuter" style="display: none;">
@@ -76,8 +78,10 @@
                             $cookies["current"] = data.currentUser.name;
                             //document.cookie = "accessToken = "+data.token.access_token+"; expires="+expirationDate;
                             //document.cookie = "refreshToken = "+data.token.refresh_token+";";
+                            //document.cookie = "current = "+ data.currentUser.name+";";
                             //Ext.util.Cookies.set("accessToken", data.token.access_token, expirationDate);
                             //Ext.util.Cookies.set("refreshToken", data.token.refresh_token);
+                            //Ext.util.Cookies.set("currentUser", data.currentUser.name);
                             window.location.href = "/backoffice";
                         }
                     },

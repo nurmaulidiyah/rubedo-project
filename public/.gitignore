@@ -1,3 +1,4 @@
 /components
 /composer.lock
 /captcha
+!/components/webtales/turbine-backoffice
